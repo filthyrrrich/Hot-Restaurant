@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Hot Restaurant</title>
+</head>
+<body>
+    <div class="container">
+  
+    <div class="jumbotron">
+        <h1 id="main-head">Hot Restaurant</h1>
+        <h2 id="sub-head">Current Reservations and Waiting List</h2>
+        <a href="reserve" class="btn btn-danger">Make Reservation</a>
+        <a href="/" class="btn btn-light">Home</a>
+    </div>
+    <div class="card text-left reservation">
+        <div class="card-header">
+            Current Reservations
+        </div>
+        <div class="card-body" id="resList">
+         
+        </div>
+    </div>
+    <div class="card text-left waiting">
+            <div class="card-header">
+                Waiting List
+            </div>
+            <div class="card-body" id="waitList">
+             
+            </div>
+         
+        </div>
+            <footer>
+                    <p><a href="/api-table">API Table Link</a> | <a href="/api-wait">API Wait Link</a></p>
+            </footer>
+        </div>
+        <script type="text/javascript">
+
+            $.get("/api-table", function(data) {
+              for (var i = 0; i < data.length; i++) {
+                var newRes = $("<div>");
+                newRes.addClass("well");
+                newRes.attr("id", "reserved" + i);
+                $("#resList").append(newRes);
+        
+                $("#reserved" + i).append("<h2>", (i+1), " | ", data[i].customerID ,"</h2>");
+                // $("#reserved" + i).append("<h3>Name: " + data[i].customerID + "</h4>");
+              
+              }
+            });
+
+            $.get("/api-wait", function(data) {
+              for (var i = 0; i < data.length; i++) {
+                var newRes = $("<div>");
+                newRes.addClass("well");
+                newRes.attr("id", "waited" + i);
+                $("#waitList").append(newRes);
+        
+                $("#waited" + i).append("<h2>", (i+1), " | ", data[i].customerID ,"</h2>");
+                // $("#reserved" + i).append("<h3>Name: " + data[i].customerID + "</h4>");
+              
+              }
+            });
+        </script>
+   
+   
+</body>
+</html>

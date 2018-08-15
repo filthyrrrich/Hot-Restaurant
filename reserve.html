@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Hot Restaurant</title>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 id="main-head">Hot Restaurant</h1>
+            <h2 id="sub-head">Enter your info to make a reservation</h2>
+            <a href="tables" class="btn btn-primary">View Tables</a>
+            <a href="/" class="btn btn-light">Home</a>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Table Reservation
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Name</label>
+                    <input type="name" class="form-control" id="userName" placeholder="Joe Shmoe">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Phone Number</label>
+                    <input type="number" class="form-control" id="phoneNumber" placeholder="555-5555">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="shmoe@joey.com">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Unique ID</label>
+                    <input type="id" class="form-control" id="uniqueID" placeholder="joeshmoe10">
+                </div>
+                <button type="submit" class="submit btn btn-primary">Submit</button>
+            </div>
+         
+        </div>
+        <footer>
+                <p><a href="./api-table">API Table Link</a> | <a href="./api-wait">API Wait Link</a></p>
+        </footer>
+        <script type="text/javascript">
+            
+            $(".submit").on("click", function(event) {
+                event.preventDefault();
+                var reservation = {
+                customerName: $("#userName").val().trim(),
+                phoneNumber: $("#phoneNumber").val().trim(),
+                customerEmail: $("#email").val().trim(),
+                customerID: $("#uniqueID").val().trim()
+                };
+        
+                
+                $.post("/api-table", reservation)
+                .then(function(data) {
+                    console.log(data);
+                    alert("Adding Reservation...");
+                });
+
+                $("#userName").val("");
+                $("#phoneNumber").val("");
+                $("#email").val("");
+                $("#uniqueID").val("");
+            });
+        </script>
+        
+</body>
+</html>
